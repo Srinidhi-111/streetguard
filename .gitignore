@@ -1,0 +1,10 @@
+.env
+node_modules/
+__pycache__/
+*.pyc
+dist/
+build/
+.DS_Store
+*.pkl
+*.joblib
+ml/data/*.csv

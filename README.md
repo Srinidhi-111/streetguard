@@ -9,6 +9,25 @@ No forms. No agents. No waiting.
 
 ---
 
+## 📋 Table of Contents
+
+1. [The Problem](#-the-problem)
+2. [Meet Murugan — Our Persona](#-meet-murugan--our-persona)
+3. [Our Solution](#-our-solution)
+4. [How It Works](#-how-it-works)
+5. [Parametric Triggers](#-parametric-triggers)
+6. [Weekly Premium Model](#-weekly-premium-model)
+7. [Loss Simulation Dashboard](#-loss-simulation-dashboard)
+8. [AI/ML Integration](#-aiml-integration)
+9. [Tech Stack](#-tech-stack)
+10. [System Architecture](#-system-architecture)
+11. [Platform Choice](#-platform-choice--web-application)
+12. [Repository Structure](#-repository-structure)
+13. [Development Plan](#-development-plan)
+14. [Team](#-team--code4ce)
+15. [References](#-references)
+
+---
 
 ## 🎯 The Problem
 
@@ -250,11 +269,62 @@ Our trigger monitoring system needs to push real-time updates to worker dashboar
 
 ## 🏗️ System Architecture
 
-The frontend is a React app hosted on Vercel. It communicates with our FastAPI backend on Railway through REST APIs. The backend is where all the real work happens — trigger monitoring, claim processing, fraud detection, and payment disbursement. Firebase Firestore stores all worker profiles, policies, and claim records and pushes real-time updates to the frontend the moment a claim is triggered. Firebase Auth handles phone number OTP login so workers don't need a password. Our ML models run as Python modules inside the backend. All external API calls — OpenWeatherMap, WAQI, and Razorpay — go through the backend only, never directly from the frontend.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        GIGSHIELD SYSTEM                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│   ┌──────────────┐         ┌──────────────────────────┐    │
+│   │   React.js   │ ◄─────► │   FastAPI Backend         │    │
+│   │   Frontend   │  REST   │   (Python)                │    │
+│   │   (Vercel)   │         │   (Railway)               │    │
+│   └──────────────┘         └──────────┬───────────────┘    │
+│                                        │                     │
+│              ┌─────────────────────────┼──────────────┐     │
+│              │                         │              │     │
+│              ▼                         ▼              ▼     │
+│   ┌──────────────────┐  ┌──────────────────┐  ┌──────────┐ │
+│   │ Firebase         │  │ OpenWeatherMap   │  │ Razorpay │ │
+│   │ Firestore +      │  │ API + WAQI API   │  │ UPI      │ │
+│   │ Firebase Auth    │  │ (Trigger Source) │  │ Payout   │ │
+│   └──────────────────┘  └──────────────────┘  └──────────┘ │
+│                                        │                     │
+│                          ┌─────────────▼──────────┐         │
+│                          │   scikit-learn ML Layer │         │
+│                          │   - Premium Calculator  │         │
+│                          │   - Fraud Detection     │         │
+│                          │   - Risk Predictor      │         │
+│                          └────────────────────────┘         │
+└─────────────────────────────────────────────────────────────┘
+```
 
-**How a claim works end to end:**
-
-The backend polls OpenWeatherMap every 30 minutes for every active worker's pincode. The moment a threshold is crossed — say rainfall exceeds 20mm/hr in Tambaram — the trigger monitor identifies all active policies in that zone, creates claim records in Firestore, and runs them through the fraud detection model. Clean claims go straight to Razorpay for UPI disbursement. Flagged claims go to the admin review queue. The worker gets a push notification either way. The whole process from trigger detection to payout initiation takes under 5 minutes.
+**Data Flow — Claim Trigger:**
+```
+OpenWeatherMap API (every 30 mins)
+        │
+        ▼
+FastAPI Trigger Monitor
+        │
+        ├── Threshold crossed? NO → Continue polling
+        │
+        └── Threshold crossed? YES
+                │
+                ▼
+        Identify active policies in affected zone (Firestore)
+                │
+                ▼
+        Create claim records (Firestore)
+                │
+                ▼
+        ML Fraud Detection (scikit-learn)
+                │
+                ├── Flagged → Admin review queue
+                │
+                └── Clean → Razorpay UPI disbursement
+                                │
+                                ▼
+                        Push notification to worker
+```
 
 ---
 
@@ -272,9 +342,79 @@ The backend polls OpenWeatherMap every 30 minutes for every active worker's pinc
 
 ## 📁 Repository Structure
 
-The repo is split into four main folders. The `frontend` folder is our React + Tailwind project — components, pages, services, and utilities all have their own subfolders so the codebase stays clean as we build. The `backend` folder is our FastAPI app, organised into routers (API endpoints), services (business logic like trigger monitoring and claim processing), ml (our scikit-learn models), and models (Pydantic data schemas). The `ml` folder holds our Jupyter notebooks for training the premium calculation and fraud detection models separately from the backend code. The `docs` folder contains our persona document, wireframes, and architecture notes.
+```
+gigshield/
+│
+├── frontend/                          # React.js application
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/                # Reusable UI components
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── TriggerCard.jsx        # Live zone monitoring card
+│   │   │   ├── ClaimStatus.jsx        # Claim progress tracker
+│   │   │   ├── PremiumDisplay.jsx     # Premium breakdown card
+│   │   │   └── LossSimulator.jsx      # Loss simulation calculator
+│   │   ├── pages/                     # Route-level page components
+│   │   │   ├── Landing.jsx
+│   │   │   ├── Onboarding.jsx
+│   │   │   ├── Dashboard.jsx          # Worker dashboard
+│   │   │   ├── ActiveClaim.jsx
+│   │   │   └── AdminDashboard.jsx
+│   │   ├── services/                  # API call functions
+│   │   │   ├── api.js                 # FastAPI backend calls
+│   │   │   └── firebase.js            # Firestore real-time listeners
+│   │   ├── utils/                     # Helper functions
+│   │   │   └── premiumCalculator.js
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── backend/                           # FastAPI application
+│   ├── app/
+│   │   ├── main.py                    # FastAPI app entry point
+│   │   ├── routers/                   # API route handlers
+│   │   │   ├── workers.py             # Worker registration, profile
+│   │   │   ├── policies.py            # Policy creation, renewal
+│   │   │   ├── claims.py              # Claim initiation, status
+│   │   │   ├── triggers.py            # Trigger monitoring endpoints
+│   │   │   └── admin.py               # Admin dashboard endpoints
+│   │   ├── services/                  # Business logic
+│   │   │   ├── trigger_monitor.py     # 30-min polling loop
+│   │   │   ├── claim_processor.py     # Auto-claim initiation
+│   │   │   ├── payout_service.py      # Razorpay UPI disbursement
+│   │   │   └── notification_service.py
+│   │   ├── ml/                        # ML models
+│   │   │   ├── premium_model.py       # scikit-learn regression
+│   │   │   ├── fraud_detection.py     # Isolation Forest
+│   │   │   └── risk_predictor.py      # 7-day forecast risk scoring
+│   │   ├── models/                    # Pydantic data models
+│   │   │   ├── worker.py
+│   │   │   ├── policy.py
+│   │   │   └── claim.py
+│   │   └── config.py                  # Environment variables
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── ml/                                # ML model training notebooks
+│   ├── data/                          # Training datasets
+│   ├── premium_model_training.ipynb
+│   └── fraud_detection_training.ipynb
+│
+├── docs/                              # Project documentation
+│   ├── persona/
+│   │   └── murugan_worker_persona.docx
+│   ├── wireframes/
+│   │   └── gigshield_wireframes_v2.html
+│   └── architecture/
+│       └── system_architecture.md
+│
+├── .env.example                       # Environment variable template
+├── .gitignore
+└── README.md
+```
 
-We set this structure up in Phase 1 deliberately — so that when Phase 2 build starts, every team member knows exactly where their work lives and there's no confusion about where files go.
 ---
 
 ## 🗓️ Development Plan
