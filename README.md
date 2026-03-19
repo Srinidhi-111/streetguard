@@ -7,6 +7,8 @@
 
 No forms. No agents. No waiting.
 
+**[▶ Try the Interactive Prototype](./GigShield_Prototype.html)**
+
 ---
 
 ## 📋 Table of Contents
