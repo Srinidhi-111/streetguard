@@ -47,7 +47,6 @@ body { background:#0A0F1E; color:#fff; font-family:'Inter',system-ui,sans-serif;
 const { useState, useEffect, useCallback, useRef } = React;
 const { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } = Recharts;
 
-// ─── ICONS (SVG inline) ───
 const ShieldIcon = ({size=24,color='currentColor'}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
 const SunIcon = ({size=24,color='currentColor'}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>;
 const CloudRainIcon = ({size=24,color='currentColor'}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 17.58A5 5 0 0018 8h-1.26A8 8 0 104 16.25"/><path d="M8 16v2M8 20v1M12 18v2M12 22v1M16 16v2M16 20v1"/></svg>;
@@ -82,7 +81,6 @@ function App() {
   return <Landing navigate={navigate}/>;
 }
 
-// ─── NAVBAR ───
 function Navbar({navigate, transparent=true}) {
   return (
     <nav className={`sticky top-0 z-50 ${transparent ? 'bg-navy/80 backdrop-blur-md' : 'bg-navy'} border-b border-white/10`}>
@@ -104,7 +102,6 @@ function Navbar({navigate, transparent=true}) {
   );
 }
 
-// ─── LANDING PAGE ───
 function Landing({navigate}) {
   return (
     <div className="min-h-screen bg-navy">
@@ -227,7 +224,6 @@ function Landing({navigate}) {
   );
 }
 
-// ─── ONBOARDING ───
 function Onboarding({navigate}) {
   const [step, setStep] = useState(1);
   const [platform, setPlatform] = useState('');
@@ -450,7 +446,6 @@ function Onboarding({navigate}) {
   );
 }
 
-// ─── DASHBOARD ───
 function Dashboard({navigate}) {
   const [stormActive, setStormActive] = useState(false);
   const [banners, setBanners] = useState([]);
@@ -684,7 +679,6 @@ function Dashboard({navigate}) {
   );
 }
 
-// ─── RENDER ───
 ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
