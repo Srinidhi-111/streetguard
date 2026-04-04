@@ -7,6 +7,7 @@ import requests
 from dotenv import load_dotenv
 from app.ml.premium_model import predict_premium
 from app.ml.fraud_detection import detect_fraud
+from app.routers import workers, policies, claims, triggers, admin
 
 load_dotenv()
 
@@ -19,6 +20,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(workers.router)
+app.include_router(policies.router)
+app.include_router(claims.router)
+app.include_router(triggers.router)
+app.include_router(admin.router)
 
 OPENWEATHER_KEY = os.getenv("OPENWEATHER_KEY", "demo")
 WAQI_KEY = os.getenv("WAQI_KEY", "demo")
