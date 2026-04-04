@@ -24,7 +24,7 @@ export default function Policy({ onNavigate }) {
         <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
             <span className="text-xl">🛡️</span>
-            <span className="font-display text-base font-bold text-white">GigShield Policy</span>
+            <span className="font-display text-base font-bold text-white">StreetGuard Policy</span>
           </div>
           <span className="bg-green-900/30 text-green-400 border border-green-500/30 text-xs font-semibold px-3 py-1 rounded-full">Active</span>
         </div>
@@ -32,7 +32,7 @@ export default function Policy({ onNavigate }) {
           {[
             ['Policy ID', policyId.slice(0, 14)],
             ['Zone', workerData.zone || 'Tambaram'],
-            ['Platform', workerData.platform || 'Swiggy'],
+            ['Business Type', workerData.platform || 'Food Cart'],
             ['Renewal', `${renewalDate} · ₹${workerData.premium || 84}`],
           ].map(([label, val]) => (
             <div key={label}>

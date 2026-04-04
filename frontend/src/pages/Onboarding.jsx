@@ -20,11 +20,11 @@ const BrainIcon = ({ size = 24, color = 'currentColor' }) => (
 
 // Platform configs
 const platforms = [
-  { name: 'Zomato', color: '#E23744', emoji: '🍕' },
-  { name: 'Swiggy', color: '#FC8019', emoji: '🛵' },
-  { name: 'Zepto', color: '#7B61FF', emoji: '⚡' },
-  { name: 'Blinkit', color: '#F5C518', emoji: '📦' },
-  { name: 'Amazon', color: '#FF9900', emoji: '🚚' },
+  { name: 'Food Cart', color: '#E23744', emoji: '🍳' },
+  { name: 'Tea Stall', color: '#FC8019', emoji: '☕' },
+  { name: 'Vegetable Cart', color: '#00FF88', emoji: '🥬' },
+  { name: 'Clothing Stand', color: '#7B61FF', emoji: '👕' },
+  { name: 'Electronics', color: '#00D4AA', emoji: '📱' },
 ]
 
 const cities = ['Mumbai', 'Delhi NCR', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Kolkata', 'Ahmedabad']
@@ -91,7 +91,7 @@ export default function Onboarding({ onNavigate }) {
 
   const activate = () => {
     const workerData = {
-      name: name || 'Rider',
+      name: name || 'Vendor',
       phone: phone || '+91 98765 43210',
       platform,
       city,
@@ -121,7 +121,7 @@ export default function Onboarding({ onNavigate }) {
       {/* Top bar */}
       <div className="border-b border-white/10 px-6 py-4 flex items-center gap-3">
         <ShieldIcon size={24} color="#00D4AA" />
-        <span className="font-display font-bold text-lg text-white">GigShield</span>
+        <span className="font-display font-bold text-lg text-white">StreetGuard</span>
         <span className="text-white/30 text-sm ml-2">Registration</span>
       </div>
 
@@ -149,8 +149,8 @@ export default function Onboarding({ onNavigate }) {
         {/* ── Step 1: Platform & Identity ── */}
         {step === 1 && (
           <div className="animate-in">
-            <h2 className="font-display font-bold text-2xl mb-2 text-white">Which platform do you deliver for?</h2>
-            <p className="text-white/50 text-sm mb-8">Select your primary delivery platform</p>
+            <h2 className="font-display font-bold text-2xl mb-2 text-white">What type of street business do you run?</h2>
+            <p className="text-white/50 text-sm mb-8">Select your primary business category</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
               {platforms.map(({ name: pName, color, emoji }) => (
                 <button key={pName} onClick={() => setPlatform(pName)}
@@ -327,8 +327,8 @@ export default function Onboarding({ onNavigate }) {
             <p className="text-white/50 text-sm mb-8">Review your coverage details before activating</p>
             <div className="glass-card p-6 rounded-2xl mb-6 space-y-4">
               {[
-                ['Name', name || 'Rider'],
-                ['Platform', platform || '—'],
+                ['Name', name || 'Vendor'],
+                ['Business Type', platform || '—'],
                 ['City', city || '—'],
                 ['Zone', zone || '—'],
                 ['Working Hours', `${hours} hrs/day`],

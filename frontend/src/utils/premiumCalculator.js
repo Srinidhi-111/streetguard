@@ -1,5 +1,5 @@
 /**
- * GigShield Premium Calculator
+ * StreetGuard Premium Calculator
  * Weekly Premium = Base Rate + Zone Risk Adjustment + Seasonal Adjustment
  */
 

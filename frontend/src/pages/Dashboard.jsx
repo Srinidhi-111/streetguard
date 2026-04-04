@@ -82,7 +82,7 @@ export default function Dashboard({ onNavigate }) {
             <ArrowLeftIcon size={20} />
           </button>
           <ShieldIcon size={22} color="#00D4AA" />
-          <span className="font-display font-bold text-white">GigShield</span>
+          <span className="font-display font-bold text-white">StreetGuard</span>
           <span className="glass-card px-2 py-0.5 rounded text-[10px] text-primary tracking-wider font-semibold">DASHBOARD</span>
         </div>
         <div className="flex items-center gap-3">
@@ -111,7 +111,7 @@ export default function Dashboard({ onNavigate }) {
         <div className="flex flex-wrap items-start justify-between mb-6">
           <div>
             <h1 className="font-display font-bold text-2xl mb-1 text-white">
-              Good Morning, {profile.name || 'Rider'}
+              Good Morning, {profile.name || 'Vendor'}
             </h1>
             <p className="text-white/50 text-sm">
               {profile.city || 'Chennai'}, {profile.zone || 'Tambaram'} — <span className="text-success">Policy Active</span>
@@ -166,7 +166,7 @@ export default function Dashboard({ onNavigate }) {
               <span className="text-xs tracking-wider text-white/50 font-semibold">ACTIVE POLICY</span>
               <span className="w-2 h-2 rounded-full bg-success"></span>
             </div>
-            <h3 className="font-display font-bold text-lg mb-4 text-white">GigShield Weekly</h3>
+            <h3 className="font-display font-bold text-lg mb-4 text-white">StreetGuard Weekly</h3>
             <div className="space-y-3 mb-4">
               {[
                 ['Premium', `₹${profile.premium || 84}/wk`, 'text-primary'],

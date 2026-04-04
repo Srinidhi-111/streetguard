@@ -26,7 +26,7 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="font-display text-xl font-bold text-white">🛡️ GigShield Admin</h1>
+          <h1 className="font-display text-xl font-bold text-white">🛡️ StreetGuard Admin</h1>
           <p className="text-xs text-gray-400">Chennai — Live Dashboard</p>
         </div>
         <span className="bg-red-900/20 text-red-400 border border-red-500/30 text-xs font-bold px-3 py-1 rounded-full">● 1 Active</span>

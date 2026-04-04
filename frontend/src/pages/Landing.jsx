@@ -53,7 +53,7 @@ export default function Landing({ onNavigate }) {
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('landing')}>
             <ShieldIcon size={28} color="#00D4AA" />
-            <span className="font-display font-bold text-xl text-white">GigShield</span>
+            <span className="font-display font-bold text-xl text-white">StreetGuard</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm text-white/60">
             <a href="#features" className="hover:text-white transition">How It Works</a>
@@ -77,8 +77,8 @@ export default function Landing({ onNavigate }) {
           <h1 className="font-display font-extrabold text-4xl md:text-6xl leading-tight mb-6 text-white">
             Don't Let The <span className="text-primary">Rain</span> Steal Your Earnings
           </h1>
-          <p className="text-white/60 text-lg mb-4">When weather strikes, GigShield pays. Automatically.</p>
-          <p className="text-white/40 text-sm mb-10">Built for India's 7.7 million delivery partners.</p>
+          <p className="text-white/60 text-lg mb-4">When weather strikes, StreetGuard pays. Automatically.</p>
+          <p className="text-white/40 text-sm mb-10">Built for India's 7.7 million street vendors and local carts.</p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-10">
             {[['₹49', 'Per Week'], ['15 min', 'Claim Payout'], ['Zero', 'Paperwork']].map(([v, l]) => (
@@ -182,7 +182,7 @@ export default function Landing({ onNavigate }) {
 
       {/* ── Footer ── */}
       <footer className="border-t border-white/10 py-8 text-center text-white/30 text-sm">
-        GigShield · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Gig Economy
+        StreetGuard · Guidewire DEVTrails 2026 · AI-Powered Parametric Insurance for India's Street Economy
       </footer>
     </div>
   )
